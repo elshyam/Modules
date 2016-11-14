@@ -21,7 +21,7 @@ static unsigned int UDP_counter_hook_func(const struct nf_hook_ops *ops, struct 
 	
 
 	/*check for UDP packet comparing ip header protocol */
-	if(iph->protocol ==  IPPROTO_UDP){       /* see full list of protocols in <linux/in.h> */
+	if(ipheader->protocol ==  IPPROTO_UDP){       /* see full list of protocols in <linux/in.h> */
 		count = count + 1;
 		printk(KERN_INFO "UDP Paket number %d\n", count);
 		return count;
