@@ -12,16 +12,13 @@ int count = 0;
 static unsigned int UDP_counter_hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb, const struct net_device *in,
 		const struct net_device *out, int (*okfn)(struct sk_buff *))
 {
-	struct iphdr *iph;
+	struct iphdr *ipheader;
 	
 	if(!skb)
 		return NF_ACCEPT;
 
-	iph =ip_hdr(skb);   /*Extracts IP header from sk_buff*/
+	ipheader = ip_hdr(skb);   /*Extracts IP header from sk_buff*/
 	
-	if(!skb){
-		return NF_ACCEPT;
-	}
 
 	/*check for UDP packet comparing ip header protocol */
 	if(iph->protocol ==  IPPROTO_UDP){       /* see full list of protocols in <linux/in.h> */
@@ -30,7 +27,8 @@ static unsigned int UDP_counter_hook_func(const struct nf_hook_ops *ops, struct 
 		return count;
 	}
 
-	return NF_ACCEPT;
+	return NF_ACCEPT;  /* The packet continues its traversal in the kernel network stack as usual, 
+			      See more verdicts in include/uapi/linux/netfilter.h */
 	
 }
 static int __init udpCounter_init(void)
