@@ -24,7 +24,6 @@ static unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb
 	if(ip_header->protocol != IPPROTO_TCP) /*check for TCP protocol*/
 		return NF_ACCEPT;
 
-
 	tcp_header = tcp_hdr(skb); /*Extract tcp_header from sk_buffer*/
    
        	/* Convert network endianness to host endiannes */
@@ -34,15 +33,12 @@ static unsigned int hook_func(const struct nf_hook_ops *ops, struct sk_buff *skb
 	destination_port = ntohs(tcp_header->dest);
 	sequence_number = ntohl(tcp_header->seq);
 	acknowledgement_number = ntohl(tcp_header->ack_seq);	
-	
-	
+		
     	/* Print packet route */
 	printk(KERN_INFO "Received: %pI4h:%d ------> %pI4h:%d\n", &source_address, source_port, &destination_address, destination_port);
 	printk(KERN_INFO "sequence number = %u    acknowlede number = %u \n", sequence_number, acknowledgement_number);
 	printk(KERN_INFO "-----------------------------------------------------------------------------------------------------\n");
 
-	
-	
 	return NF_ACCEPT;
 }
 
@@ -63,7 +59,6 @@ static int __init tcpFields_init(void)
 		printk(KERN_INFO "Receiver: error in nf_register_hook()\n");
 		return res;
 	}
-
 	printk(KERN_INFO "Receiver: loaded\n");
 
 	return 0;
@@ -77,7 +72,6 @@ static void __exit tcpFields_exit(void)
 
 module_init(tcpFields_init);
 module_exit(tcpFields_exit);
-
 
 MODULE_AUTHOR("shyam saini");
 MODULE_DESCRIPTION("Module for printing TCP header to see TCP syn-ack flow");
