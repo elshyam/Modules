@@ -1,6 +1,6 @@
-I have used netfilters to capture the packets.
+I have used [**netfilters hooks**](https://en.wikipedia.org/wiki/Netfilter) to capture the packets.
 
-Here, netfilters capture sk_buff also known as socket buffer. Socket buffer is the most basic entity of linux kernel Network Stack.
+Here, netfilters capture [**sk_buff**](http://vger.kernel.org/~davem/skb_data.html) also known as socket buffer. Socket buffer is the most basic entity of linux kernel Network Stack.
 
 Then from sk_buff, ipheader is extracted.
 
